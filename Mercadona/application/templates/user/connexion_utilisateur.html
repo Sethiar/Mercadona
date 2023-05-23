@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Authentification client</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f1f1f1;
+		}
+		form {
+			border: 3px solid #f1f1f1;
+			background-color: #fff;
+			padding: 20px;
+			max-width: 400px;
+			margin: 50px auto;
+			text-align: center;
+		}
+		input[type=text], input[type=password] {
+			width: 100%;
+			padding: 12px 20px;
+			margin: 8px 0;
+			display: inline-block;
+			border: 1px solid #ccc;
+			box-sizing: border-box;
+			font-size: 15px;
+
+		}
+		button {
+			background-color: #4CAF50;
+			color: white;
+			padding: 14px 20px;
+			margin: 8px 0;
+			border: none;
+			cursor: pointer;
+			width: 100%;
+		}
+		button:hover {
+			opacity: 0.8;
+		}
+		.cancelledbtn {
+			background-color: gold;
+		}
+		.imgcontainer {
+			text-align: center;
+			margin: 24px 0 12px 0;
+		}
+		img.avatar {
+			width: 30%;
+			border-radius: 50%;
+		}
+		.container {
+			padding: 16px;
+		}
+		span.psw {
+			float: right;
+			padding-top: 16px;
+		}
+		@media screen and (max-width: 300px) {
+			span.psw {
+				display: block;
+				float: none;
+			}
+			.cancelledbtn {
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+<body>
+	<form method="POST" action="{{ url_for('connexion_utilisateur') }}">
+
+		<div class="imgcontainer">
+			<img src="{{ url_for('static', filename='images/logo_merca.png') }}" alt="Avatar" class="avatar">
+		</div>
+		<h3>Authentification client</h3>
+		 {{ form.csrf_token }}
+		<div class="container">
+			<label for="{{ form.identifiant.id }}"><b>Identifiant</b></label>
+			{{ form.identifiant(class="form-control", placeholder="Entrer votre identifiant") }}
+			<label for="{{ form.password.id }}"><b>Mot de passe</b></label>
+			{{ form.password(class="form-control", placeholder="Entrer votre mot de passe") }}
+			{{ form.submit(class="btn btn-primary", type="submit") }}
+		<div class="container" style="background-color:#f1f1f1">
+			<button type="button" class="cancelledbtn"><a href="{{ url_for('catalogue') }}">Cancel</a></button>
+
+		</div>
+
+	</form>
+</body>
+</html>

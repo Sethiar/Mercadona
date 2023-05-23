@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Page administrateur du site de Mercadona</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel='stylesheet' href="{{ url_for('static',filename='CSS/back_end.css') }}">
+    <script src="{{ url_for('static', filename='CSS/script_back.js') }}"></script>
+</head>
+
+<body>
+<header>
+    <nav>
+        <h2>Bienvenue sur la page administrateur du site de Mercadona</h2>
+        <ul><a class="retour_frontend" href="{{ url_for('catalogue') }}">Aller sur la page catalogue du site</a></ul>
+        <button><a href="{{ url_for('admin_validation') }}">Accéder à la liste client</a></button>
+    </nav>
+</header>
+
+
+
+<div class="container">
+    <!-- Pour ajouter une catégorie -->
+    <div class="categorie">
+        <h4>Ajouter une catégorie de produits</h4>
+        <form method="POST" action="/admin/nouvelle_categorie">
+            <label for="nom">Nom de la catégorie :</label>
+            <input type="text" id="nom" name="nom" value="{{ categorie|escape }}" required><br><br>
+            <input type="submit" class="font_button" value="Ajouter une catégorie">
+        </form>
+
+
+        <!-- Pour afficher la liste des catégories -->
+        <div class="liste_categories">
+            <h5>Liste des catégories</h5>
+            <ul>
+                {% for categorie in categories %}
+                <li>
+                    {{ categorie.nom }}
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <form action="/admin/supprimer_catégorie/{{ categorie.id }}" method="POST" class="btn_suppression">
+                        <button type="submit" class="btn_suppression"><i class="fas fa-trash"></i></button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Pour Ajouter les produits -->
+    <div class="produit">
+        <h4> Ajouter un produit</h4>
+        <form method="post" action="/admin/nouveau_produit" enctype="multipart/form-data">
+            <label for="libelle">Libelle : </label>
+            <input type="text" id="libelle" class="ecriture" name="libelle" value="{{ libelle }}" required><br><br>
+
+            <label for="description">Description :</label>
+            <textarea id="description" class="ecriture" name="description" value="{{ description }}" required></textarea><br><br>
+
+            <label for="prix">Prix :</label>
+            <input type="number" id="prix" class="ecriture" name="prix" min="0" step="0.01" required><br><br>
+
+            <label for="image">Image :</label>
+            <input type="file" id="image" name="image" accept="image/*" required><br><br>
+            <img id="preview" style="max-width:200px; max-height:200px;"><br><br>
+
+            <label for="categorie_id">Catégorie :</label>
+            <select id="categorie_id" name="categorie_id">
+                <option class="bouton_produit_categorie" value="" disabled selected hidden>Sélectionnez une catégorie</option>
+                {% for categorie in categories %}
+                    <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <input type="submit" value="Ajouter le produit">
+        </form>
+    </div>
+</div>
+<br><br><br><br>
+<!-- Pour ajouter des promotions-->
+<h4>Veuillez appliquer les promotions que vous désirez sur les produits suivants</h4>
+
+<br><br>
+
+<div class="container">
+    <br><br>
+    <h5>Liste des produits</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Libellé</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Catégorie</th>
+                <th>Action</th>
+                <th>Suppression</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for produit in produits %}
+            <tr>
+                <td>{{ produit.libelle }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.prix }} €</td>
+                <td>{{ produit.categorie.nom }}</td>
+                <td>
+                    <button type="button" class="bouton_promo" data-toggle="modal" data-target="#promotionModal{{ produit.id }}">Promotion</button>
+                    <div class="modal fade" id="promotionModal{{ produit.id }}" tabindex="-1" role="dialog" aria-labelledby="promotionModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="promotionModalLabel">Appliquer une promotion</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/admin/nouvelle_promotion/{{ produit.id }}" method="POST">
+                                        <div class="form-group">
+                                            <label for="remise">Remise en pourcentage :</label>
+                                            <input type="number" class="form-control" id="remise" name="remise" min="0" max="100" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="date_debut">Date de début :</label>
+                                            <input type="date" class="form-control" id="date_debut" name="date_debut" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="date_fin">Date de fin :</label>
+                                            <input type="date" class="form-control" id="date_fin" name="date_fin" required min="{{ produit.date_debut }}">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Appliquer</button>
+                                    </form>
+                                </div>
+                                <div>
+                                    {% if produit.prix_promo %}
+                                    <p>Nouveau prix : {{ produit.prix_promo.nouveau_prix }} €</p>
+                                    <p>Date de début : {{ produit.prix_promo.date_debut }}</p>
+                                    <p>Date de fin : {{ produit.prix_promo.date_fin }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <form action="/admin/supprimer_produit/{{ produit.id }}" method="POST" class="btn_suppression">
+                        <button type="submit" class="btn_suppression"><i class="fas fa-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<br><br>
+
+<div>
+        <form action="/afficher_back_end" method="GET">
+        <select name="categorie">
+            <option value="">Toutes les catégories</option>
+                {% for categorie in categories %}
+            <option value="{{ categorie }}"> {{ categorie }}</option>
+                {% endfor %}
+        </select>
+        <input type="submit" value="Filtrer">
+    </form>
+</div>
+
+<br><br>
+
+
+
+
+<div class="message_flash">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+      <button id="btn_supprimer">Supprimer</button>
+    {% endif %}
+  {% endwith %}
+</div>
+
+
+<br><br>
+
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+  const dismissButton = document.querySelector('#btn_supprimer');
+
+  dismissButton.addEventListener('click', () => {
+    const messageFlash = document.querySelector('.message_flash');
+    // Suppression des messages flash du DOM
+    messageFlash.remove();
+  });
+});
+</script>
+
+</body>
+</html>
+

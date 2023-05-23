@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Conditions de Souscriptions au site de vente de Mercadona</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='CSS/conditions_souscription.css') }}">
+    <style>
+        body {
+            background-color: #2c3e50;
+            color: white;
+            font-family: "Comic Sans MS", cursive;
+        }
+
+        .avatar {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .titre {
+            text-align: center;
+        }
+
+        .condition, div {
+            border: 3px solid gold;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .text {
+           width: 40%;
+           height: 100px;
+           resize: vertical;
+           margin: 0 auto;
+
+        }
+        .validation {
+            text-align: center;
+        }
+
+    </style>
+
+
+</head>
+    <body>
+        <img src="{{ url_for('static', filename='images/logo_merca.png') }}" alt="Avatar" class="avatar">
+        <h3 class="titre">Consentement</h3>
+        <h4 class="titre">A lire et à valider en fin de lecture.</h4>
+
+            <div class="condition">
+
+                <p>Je comprends et je consens à suivre les étapes de mon adhésion
+                    au site de vente de Mercadona afin d'être reconnu-e en tant
+                    que client-e afin de profiter des offres promotionnelles.</p>
+
+                <p>Je comprends et je consens à l'utilisation de mon adresse
+                    mail afin de m'envoyer le lien qui me redirigera vers le formulaire
+                    d'adhésion des offres promotionnelles que le site propose.</p>
+
+                <p>Je comprends et je consens à ce que mes données personnelles ne
+                    puissent faire l'objet de transaction sans mon consentement.</p>
+
+
+                <p>Je comprends que le stockage de mes données personnelles
+                    respecte la norme du Règlement Générales de Protection des Données.</p>
+
+                <p>Je comprends et je consens à ce que mes données bancaires soient
+                    utilisées afin de payer mes commandes de produits et qu'elles
+                    soient stockées de manière sécurisée.</p>
+
+                <p>Je comprends les instructions écrites qui m’ont été remises
+                    quant à l'utilisation du site de Mercadona ainsi que de ma
+                    responsabilité de les suivre et de m'acquitter de mes commandes
+                    par les moyens bancaires que j'ai choisis.</p>
+
+                <p>Je suis conscient-e que tout manquement de paiement m'engage
+                    à être redevable à l'entreprise Mercadona et je consens à
+                    l'utilisation de la force brute afin de me faire payer la somme dûe.</p>
+            </div>
+
+
+             <div>
+                 <p>Je pose mes questions ici : </p>
+             <input type="text" class="text" value="{{ text|escape }}">
+
+                 <p>J’ai posé les questions nécessaires à mon engagement et
+                j’ai reçu des explications claires et satisfaisantes.</p>
+
+                 <p>Je suis consentant-e à être inscrit-e dans les registres de bases
+                de données de l'entrerpise Mercadona.</p>
+            </div>
+
+        <div class="validation">
+
+            <form>
+
+                <label for="consent-checkbox">
+                <input type="checkbox" id="consent-checkbox" required>
+                J'accepte les conditions de souscription.
+                </label>
+            <br>
+                <button type="submit" ><a href="{{ url_for('client_form') }}">Valider</a></button>
+            </form>
+        </div>
+    </body>
+</html>

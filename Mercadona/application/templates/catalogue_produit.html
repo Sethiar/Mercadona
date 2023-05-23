@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+     <link rel="stylesheet" href="{{ url_for('static',filename='CSS/catalogue.css') }}">
+     <title>Mon site de commerce Mercadona</title>
+</head>
+
+<body>
+    <header>
+    </header>
+         <nav>
+            <div class="entête">
+                <ul>
+                    <li><a href="https://www.mercadona.es/">Accueil du site Mercadona</a></li>
+                    <li><a href="https://fr.wikipedia.org/wiki/Mercadona">Nous connaître un peu plus</a></li>
+                    <li><a href="">Forum</a></li>
+                    <li><a href="">Remboursement</a></li>
+                    <li><a href="{{ url_for('admin_form') }}">Se connecter en tant qu'administrateur</a></li>
+                    <li><a href="{{ url_for('souscription_utilisateur') }}">Soumettre une inscription</a></li>
+                    <li><a href="{{ url_for('utilisateur_deconnexion') }}">Se déconnecter</a></li>
+                    <li><a href="{{ url_for('catalogue') }}">Catalogue</a></li>
+                </ul>
+            </div>
+        </nav>
+
+<br>
+<br>
+    <div class="connexion">
+        <h4>Pour profiter des promotions, vous devez vous connecter</h4>
+        <button class="button" type="button"><a href="{{ url_for('utilisateur_form') }}">S'identifier</a></button>
+
+    </div>
+
+    <div>
+        <form action="/" method="GET">
+            <select name="categorie">
+                <option value="">Toutes les catégories</option>
+                    {% for categorie in categories %}
+                <option value="{{ categorie }}"> {{ categorie }}</option>
+                    {% endfor %}
+            </select>
+            <input type="submit" value="Filtrer">
+        </form>
+    </div>
+
+         <div class="container_produits">
+             {% for produit in produits %}
+             <div class="col-2 produit">
+
+                 <h3 class="produit">{{ produit.libelle }}</h3>
+                 <p>{{ produit.description }}</p>
+                 <p class="prix">Prix : {{ produit.prix }} €</p>
+
+                     {% if prix_promos %}
+                 {% if produit.prix_promo.nouveau_prix %}
+                 <p class="promo">Prix promo : {{ produit.prix_promo.nouveau_prix }} €</p>
+                 {% else %}
+                 <p></p>
+                 {% endif %}
+                 {% if produit.prix_promo.date_debut %}
+                 <p>Date de début : {{ produit.prix_promo.date_debut.strftime('%d-%m-%Y') }}</p>
+                 {% else %}
+                 <p></p>
+                 {% endif %}
+                 {% if produit.prix_promo.date_fin %}
+                 <p>Date de fin : {{ produit.prix_promo.date_fin.strftime('%d-%m-%Y') }}</p>
+                 {% else %}
+                 <p></p>
+                 {% endif %}
+                     {% endif %}
+
+                 <img class="image-produit" src="{{ url_for('static', filename='images/images_produits/' + produit.chemin_image) }}" alt="{{ produit.libelle }}"/>
+                 <button class="btn_selection" action="">Sélectionner le produit</button>
+             </div>
+
+             {% if loop.index % 5 == 0 %}
+         </div>
+             <div class="container_produits">
+                 {% endif %}
+                 {% endfor %}
+             </div>
+    <div class="pagination">
+            {% if total_pages > 1 %}
+            {% for page_num in range(1, total_pages + 1) %}
+            {% if page_num == page %}
+                <span class="current-page">{{ page_num }}</span>
+            {% else %}
+                <a href="{{ url_for('catalogue', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+    </div>
+
+
+    <script>
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+     <link rel="stylesheet" href="{{ url_for('static',filename='CSS/accueil.css') }}">
+
+    <title>Mon site de commerce Mercadona</title>
+</head>
+
+<body>
+    <header>
+
+    </header>
+
+         <nav>
+            <div class="entête">
+                <ul>
+                    <li><a href="https://www.mercadona.es/">Accueil du site Mercadona</a></li>
+                    <li><a href="https://fr.wikipedia.org/wiki/Mercadona">Nous connaître un peu plus</a></li>
+                    <li><a href="">Forum</a></li>
+                    <li><a href="">Remboursement</a></li>
+                    <li><a href="{{ url_for('admin_form') }}">Se connecter en tant qu'administrateur</a></li>
+                    <li><a href="{{ url_for('souscription_utilisateur') }}">Soumettre une inscription</a></li>
+                    <li><a href="{{ url_for('utilisateur_deconnexion') }}">Se déconnecter</a></li>
+                    <li><a href="{{ url_for('catalogue') }}">Catalogue</a></li>
+                </ul>
+            </div>
+        </nav>
+
+<br><br>
+
+    <div class="connexion">
+        <h4>Pour profiter des promotions, vous devez vous connecter</h4>
+        <button class="button" type="button"><a href="{{ url_for('utilisateur_form') }}">S'identifier</a></button>
+    </div>
+
+<br><br>
+
+    <div class="item-right">
+        <div class="image-right">
+            <img src="{{ url_for('static', filename='images/magasin_merca.jpg')}}" width="100%" alt="Un design propre et soigné." title="Un design propre et soigné.">
+        </div>
+        <div>
+            <p class="description-right">Nous vous accueillons tous les jours de la semaine au sein d'un magasin
+                chaleureux avec des produits de qualité issus des exploitants régionaux.</p>
+        </div>
+    </div>
+
+    <br><br>
+
+    <div class="item-left">
+        <div>
+            <p class="description-left">Nous avons des solutions pour les personnes avec des horaires compliqués :
+                Mercadona reste ouvert jusqu'à 21h15. Très bien pour des petites soirées improvisées.</p>
+        </div>
+        <div class="image-left">
+            <img src="{{ url_for('static', filename='images/merca_nuit.jpg')}}" width="75%" alt="La soirée aussi, Mercadona reçoit." title="La soirée aussi, Mercadona reçoit.">
+        </div>
+    </div>
+
+    <br><br>
+
+    <div class="item-right">
+        <div class="image-right">
+            <img src="{{ url_for('static', filename='images/fraisfrai.jpg')}}" width="100%" alt="Le poisson en provenance direct des chalutiers." title="Le poisson en provenance direct des chalutiers.">
+        </div>
+        <div>
+            <p class="description-right">Nos coursiers sont présents dès le débarquement des produits des chalutiers
+                afin de pouvoir vous faire profiter des produits péchés dans la nuit.</p>
+        </div>
+    </div>
+
+    <br><br>
+
+   <div class="item-left">
+       <div>
+           <p class="description-left">Tous les matins nos partenaires régionaux nous apportent leurs produits directement issus de leurs champs ou de leurs serres. Aucun intermédiaire,
+          les produits sortent de terre pour finir dans votre panier de courses.</p>
+       </div>
+       <div class="image-left">
+           <img src="{{ url_for('static', filename='images/arrivage.jpg')}}" width="100%" alt="Des produits qui viennent de la terre, frais et disponibles." title="Des produits qui viennent de la terre, frais et disponibles.">
+       </div>
+   </div>
+
+    <br><br>
+
+    <div class="item-right">
+        <div class="image-right">
+            <img src="{{ url_for('static', filename='images/produit_frais.jpg')}}" width="100%" alt="Des rapports et des audits réguliers." title="Des rapports et des audits réguliers.">
+        </div>
+        <div>
+            <p class="description-right">Avoir des produits frais est un gage de qualité, mais avoir les moyens de les conserver est un véritable atout.
+      Des rapports et audits réguliers sont menés au sein des magasins. Ces rapports sont demandés en interne, mais nous avons
+      aussi des audits d'entreprises privées afin d'assurer notre politique de transparence.</p>
+        </div>
+    </div>
+
+    <br><br>
+
+   <div class="item-left">
+       <div>
+           <p class="description-left">Notre personnel vous accueille avec le sourire et toujours avce la plus grande bienveillance.
+               Nous voulons que l'aggresivité du monde reste à l'extérieur de notre magasin.</p>
+       </div>
+       <div class="image-left">
+           <img src="{{ url_for('static', filename='images/personnel.jpg')}}" width="100%" alt="Un personnel chaleureux et bienveillant." title="Un personnel chaleureux et bienveillant.">
+       </div>
+   </div>
+
+    <br><br>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>Informations</h3>
+                    <p>Adresse : Career València, 5, 46920 València, España</p>
+                    <p>Téléphone : +34963883333</p>
+                    <p>Email : atencionalcliente@mercadona.es</p>
+                </div>
+                <div class="col-md-3">
+                    <h3>Liens Utiles</h3>
+                    <ul>
+                        <li><a href="https://info.mercadona.es/en/service-0">Services</a></li>
+                        <li><a href="https://info.mercadona.es/en/customer-service">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Mentions Légales</h3>
+                    <ul>
+                        <li><a href="/mentions-legales">Conditions d'utilisation</a></li>
+                        <li><a href="/politique-confidentialite">Politique de confidentialité</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Réseaux Sociaux</h3>
+                    <ul>
+                        <li><a href="https://www.facebook.com/mercadona/?locale=fr_FR"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="https://twitter.com/Mercadona"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="https://www.instagram.com/mercadona/?hl=fr"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 NonoCorp. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+
+
+  <!--Liens vers les fichiers Bootstrap-->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+
+
+
+

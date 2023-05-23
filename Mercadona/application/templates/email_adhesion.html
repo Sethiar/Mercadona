@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Invitation</title>
+
+</head>
+<body>
+
+    <h3>Invitation à saisir un identifiant et un mot de passe</h3>
+    <br><br>
+     {{ if client.genre == Masculin }}
+    <p> Bonjour M.{{ client.nom }}, </p>
+    {{ else }}
+    <p> Bonjour Mme {{client.nom }},</p>
+
+    <p> Nous vous remercions de votre attention et de votre désir de rejoindre
+    notre liste de client. Vous avez reconnu en nous une firme forte et une entreprise
+    qui se veut proche de ses clients et de leurs souhaits.</p>
+    <p> Vous avez fait le nécessaire pour recevoir ce mail afin que vous puissiez profiter
+    d'offres exceptionnelles sur des centaines de produits.</p>
+    <p> Ces offres promotionnelles sont remises à jour tous les mois, ainsi, vous
+    avez la possibilité de découvrir mensuellement le produit qu'il vous faut et ce à prix
+    réduit.</p>
+    <p> Afin de terminer votre inscription, vous vous invitons à remplir ce formulaire, c'est
+    le dernier nous vous rassurons, et ainsi vous pourrez immédiatement profiter de tarifs
+    d'exception sur bien des articles.</p>
+    <br><br>
+    <p> Toute l'équipe de Mercadona se joint à moi pour vous souhaitez la bienvenue parmi nous
+    et nous espérons que vous trouverez ce que vous cherchez et que grâce à nos produits
+        vous trouviez peut-être plus encore.</p>
+
+
+
+    <p>Veuillez cliquer sur le lien ci-dessous pour accéder au formulaire :</p>
+    <a href="{{ lien_formulaire }}">Formulaire</a>
+
+</body>
+</html>
